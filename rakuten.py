@@ -34,10 +34,11 @@ def fetch_rakuten_data_by_jan():
     return rakuten_price_list
 
 
-def fetch_rakuten_data_by_item_name():
+def fetch_rakuten_data_by_item_name(rakuten_price_list_by_jan):
     item_name_list = download_target_keyword('item_name')
     rakuten_price_list = []
     rakuten_item_url_list = []
+    s_index = str(len(rakuten_price_list_by_jan))
 
     for item_name in item_name_list:
         request_url = f'https://app.rakuten.co.jp/services/api/IchibaItem/Search/20170706?applicationId={rakuten_app_id}&keyword={item_name}'
@@ -50,9 +51,9 @@ def fetch_rakuten_data_by_item_name():
         rakuten_price_list = rakuten_price_list.append(price)
         rakuten_item_url_list = rakuten_item_url_list.append(item_url)
 
-    
-    add_gspred('A','1','A','',rakuten_price_list)
-    add_gspred('A','1','A','',rakuten_item_url_list)
+    e_index = str(s_index+len(rakuten_price_list))
+    add_gspred('A',s_index,'A',e_index,rakuten_price_list)
+    add_gspred('A',s_index,'A',e_index,rakuten_item_url_list)
 
     
     return rakuten_price_list
