@@ -1,7 +1,5 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-import pandas as pd
-import numpy as np
 from logger import set_logger
 
 logger = set_logger(__name__)
@@ -18,13 +16,9 @@ def connect_gspread():
     gc = gspread.authorize(credentials)
     return gc
 
-
-def download_target_keyword(keyword):
+def download_search_keyword():
     gc = connect_gspread()
-    if keyword == 'jan':
-        worksheet = gc.open(SHEET_NAME).get_worksheet(0)
-    elif keyword == 'item_name':
-        worksheet = gc.open(SHEET_NAME).get_worksheet(1)
+    worksheet = gc.open(SHEET_NAME).get_worksheet(0)
     keyword_list = worksheet.col_values(1)
     return keyword_list
 
